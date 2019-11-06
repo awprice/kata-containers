@@ -11,8 +11,8 @@ use rustjail::errors::*;
 use std::fs;
 
 pub const RNGDEV: &'static str = "/dev/random";
-pub const RNDADDTOENTCNT: libc::c_int = 0x40045201;
-pub const RNDRESEEDRNG: libc::c_int = 0x5207;
+pub const RNDADDTOENTCNT: libc::c_ulong = 0x40045201;
+pub const RNDRESEEDRNG: libc::c_ulong = 0x5207;
 
 pub fn reseed_rng(data: &[u8]) -> Result<()> {
     let len = data.len() as libc::c_long;

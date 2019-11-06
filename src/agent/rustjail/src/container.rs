@@ -1352,7 +1352,7 @@ impl LinuxContainer {
 }
 
 lazy_static! {
-    pub static ref RLIMITMAPS: HashMap<String, libc::c_int> = {
+    pub static ref RLIMITMAPS: HashMap<String, libc::c_uint> = {
         let mut m = HashMap::new();
         m.insert("RLIMIT_CPU".to_string(), libc::RLIMIT_CPU);
         m.insert("RLIMIT_FSIZE".to_string(), libc::RLIMIT_FSIZE);
@@ -1386,7 +1386,7 @@ fn setrlimit(limit: &POSIXRlimit) -> Result<()> {
         return Err(nix::Error::Sys(Errno::EINVAL).into());
     };
 
-    let ret = unsafe { libc::setrlimit(res as i32, &rl as *const libc::rlimit) };
+    let ret = unsafe { libc::setrlimit(res, &rl as *const libc::rlimit) };
 
     Errno::result(ret).map(drop)?;
 
